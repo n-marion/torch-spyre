@@ -66,9 +66,15 @@ build = [ # no-isolation build
     "jinja2",
     "ninja",
     "numpy",
+    "packaging",
     "pyyaml", # needed for codegen
     "regex",
     "setuptools>=77.0.3",  # match upstream torch dependency range
+    # The wheel build is non-isolated (`uv build --no-build-isolation`), so
+    # [build-system].requires is never installed -- setuptools_scm has to be in
+    # this extra, and in uv.lock, or the version falls back to 0.0.0 and
+    # version_file is silently never written.
+    "setuptools_scm>=10",
     "torch~=2.13.0",
 #    "torch>=2.13.0",
     "wheel"
